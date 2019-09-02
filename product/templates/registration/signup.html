@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body %}
+	 <!-- sign up form -->
+	 <section>
+		<div id="agileits-sign-in-page" class="sign-in-wrapper">
+			<div class="agileinfo_signin">
+			<h3>Sign Up</h3>
+				<form method="post">
+					{% csrf_token %}
+					{{ form.as_p }}
+					<input type="submit" value="Sign Up">
+				</form>
+			</div>
+		</div>
+	</section>
+	<!-- //sign up form -->
+{% endblock body %}

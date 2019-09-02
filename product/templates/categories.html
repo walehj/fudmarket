@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body %}
+
+
+	<!-- breadcrumbs -->
+	<div class="w3layouts-breadcrumbs text-center">
+		<div class="container">
+			<span class="agile-breadcrumbs"><a href="index.html"><i class="fa fa-home home_1"></i></a> / <span>Categories</span></span>
+		</div>
+	</div>
+	<!-- //breadcrumbs -->
+	<!-- Categories -->
+	<!--Vertical Tab-->
+	<div class="categories-section main-grid-border">
+		<div class="container">
+			<h2 class="w3-head">All Categories</h2>
+			<div class="category-list">
+				
+					<div class="resp-tabs-container hor_1">
+						<span class="active total" style="display:block;" data-toggle="modal" data-target="#myModal"><strong>All USA</strong> (Select your city to see local ads)</span>
+						<div>
+							<div class="category">
+								<div class="category-img">
+									<img src="{% static 'images/cat1.png' %}" title="image" alt="" />
+								</div>
+								<div class="category-info">
+									<h4>Mobiles</h4>
+									<span>5,12,850 Ads</span>
+									<a href="{% url 'classified' %}">View all Ads</a>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="sub-categories">
+								<ul>
+									<li><a href="mobiles.html">mobile phones</a></li>
+									<li><a href="mobiles.html">Tablets</a></li>
+									<li><a href="mobiles.html">Accessories</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--Plug-in Initialisation-->
+	<script type="text/javascript">
+    $(document).ready(function() {
+
+        //Vertical Tab
+        $('#parentVerticalTab').easyResponsiveTabs({
+            type: 'vertical', //Types: default, vertical, accordion
+            width: 'auto', //auto or any width like 600px
+            fit: true, // 100% fit in a container
+            closed: 'accordion', // Start closed if in accordion view
+            tabidentify: 'hor_1', // The tab groups identifier
+            activate: function(event) { // Callback function if tab is switched
+                var $tab = $(this);
+                var $info = $('#nested-tabInfo2');
+                var $name = $('span', $info);
+                $name.text($tab.text());
+                $info.show();
+            }
+        });
+    });
+</script>
+	<!-- //Categories -->
+{% endblock body %}

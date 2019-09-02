@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body %}
+<!-- js -->
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+<!-- js -->
+	<!-- breadcrumbs -->
+	<div class="w3layouts-breadcrumbs text-center">
+		<div class="container">
+			<span class="agile-breadcrumbs">
+			<a href="/"><i class="fa fa-home home_1"></i></a> / 
+			<a href="{% url 'classified' %}">All Ads</a> / 
+			<a href="/">{{singleView.category}}</a> / 
+			<span>{{singleView.name}}</span></span>
+		</div>
+	</div>
+	<!-- //breadcrumbs -->
+	<!--single-page-->
+	<div class="single-page main-grid-border">
+		<div class="container">
+			<div class="product-desc">
+				<div class="col-md-7 product-view">
+					<h2>{{singleView.title}}</h2>
+					<p> <i class="glyphicon glyphicon-map-marker"></i><a href="#">location: {{singleView.city}}</a>| Added at {{singleView.date}}, Ad ID: {{singleView.id}}, Poster: {{singleView.author}} </p>
+					<div class="flexslider">
+						<ul class="slides">
+						    {% for image in product_images %}			
+							    <li data-thumb="{{image.image.url}}">
+								    <img src="{{image.image.url}}" />
+							    </li>
+							{% endfor %}
+						</ul>
+					</div>
+					<!-- FlexSlider -->
+					  <script defer src="{% static 'js/jquery.flexslider.js' %}"></script>
+
+						<script>
+					// Can also be used with $(document).ready()
+					$(window).load(function() {
+					  $('.flexslider').flexslider({
+						animation: "slide",
+						controlNav: "thumbnails"
+					  });
+					});
+					</script>
+					<!-- //FlexSlider -->
+					<div class="product-details">
+						<h4><span class="w3layouts-agileinfo">Brand </span> : <a href="#">{{singleView.brand}}</a><div class="clearfix"></div></h4>
+						
+						
+						<h4><span class="w3layouts-agileinfo">Summary</span> :<p>{{singleView.description}}</p><div class="clearfix"></div></h4>
+					
+					</div>
+				</div>
+				<div class="col-md-5 product-details-grid">
+					<div class="item-price">
+						<div class="product-price">
+							<p class="p-price">Price</p>
+							<h3 class="rate">#{{singleView.price}}</h3>
+							<div class="clearfix"></div>
+						</div>
+						<div class="condition">
+							<p class="p-price">Condition</p>
+							<h4>{{singleView.condition}}</h4>
+							<div class="clearfix"></div>
+						</div>
+						<div class="itemtype">
+							<p class="p-price">Item Type</p>
+							<h4>{{singleView.category}}</h4>
+							<div class="clearfix"></div>
+						</div>
+						
+					</div>
+					<div class="interested text-center">
+						<h4>Interested in this Ad?<small> Contact the Seller!</small></h4>
+						<p><i class="glyphicon glyphicon-earphone"></i><a href="tel:{{ singleView.number }}">{{singleView.number}}</a></p>
+					</div>
+						<div class="tips">
+						<h4>Safety Tips for Buyers</h4>
+							<ol>
+								<li><a href="#">Do not pay in advance even for the delivery</a></li>
+								<li><a href="#">Try to meet at a safe, public location</a></li>
+								<li><a href="#">Check the item BEFORE you buy it</a></li>
+								<li><a href="#">Pay only after collecting the item</a></li>
+							</ol>
+						</div>
+				</div>
+			<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+	<!--//single-page-->
+{% endblock body %}

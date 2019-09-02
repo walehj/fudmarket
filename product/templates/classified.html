@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body %}
+
+
+	<!-- breadcrumbs -->
+	<div class="w3layouts-breadcrumbs text-center">
+		<div class="container">
+			<span class="agile-breadcrumbs"><a href="index.html"><i class="fa fa-home home_1"></i></a> / <span>All Ads</span></span>
+		</div>
+	</div>
+	<!-- //breadcrumbs -->
+	<!-- Products -->
+	<div class="total-ads main-grid-border">
+		<div class="container">
+			<div class="select-box">
+				<div class="select-city-for-local-ads ads-list">
+					<label>Select your location to see local ads</label>
+						<select>
+												<optgroup label="Popular Locations">
+												{% for city in city_list %}
+													<option selected style="display:none;color:#eee;">Entire Dutsin-ma</option>
+													<option>{{city.city_name}}</option>
+												{% endfor %}
+												</optgroup>
+			            </select>
+				</div>
+				<div class="browse-category ads-list">
+					<label>Browse Categories</label>
+					<select class="selectpicker show-tick" data-live-search="true">
+					    <option data-tokens="Mobiles">All</option>
+					{% for cats in ads_cat %}
+					  <option data-tokens="Mobiles"><a href="{% url 'product_list_category' cats.slug %}">{{cats.category_name}}</a></option>
+					{% endfor %}
+					</select>
+				</div>
+				<div class="search-product ads-list">
+					<label>Search for a specific product</label>
+					<div class="search">
+						<div id="custom-search-input">
+						<div class="input-group">
+						    <form method="GET" action="{% url 'classified' %}">
+							    <input type="text" value="Product name..." name="q" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Product name...';}" required="">
+                                <input type="submit" value="search">
+						    </form>
+						</div>
+					</div>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<div class="all-categories">
+				<h3> Select your category and find the perfect ad</h3>
+				<ul class="all-cat-list">
+				{% for cats in ads_cat %}
+				
+				
+					<li><a href="{% url 'product_list_category' cats.slug %}">{{cats.category_name}}<span class="num-of-ads">({{cats.total_products}})</span></a></li>
+                {% endfor %}
+				</ul>
+			</div>
+			<div class="ads-grid">
+				<div class="side-bar col-md-3">
+					<div class="search-hotel">
+					<h3 class="agileits-sear-head">Search</h3>
+					<form method="GET" action="{% url 'classified' %}">
+						<input type="text" value="Product name..." name="q" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Product name...';}" required="">
+						<input type="submit" value=" ">
+					</form>
+				</div>
+				
+				
+				<div class="w3ls-featured-ads">
+					<h2 class="sear-head fer">Featured Ads</h2>
+					<div class="w3l-featured-ad">
+						<a href="single.html">
+							<div class="w3-featured-ad-left">
+								<img src="images/f1.jpg" title="ad image" alt="" />
+							</div>
+							<div class="w3-featured-ad-right">
+								<h4>Lorem Ipsum is simply dummy text of the printing industry</h4>
+								<p>$ 450</p>
+							</div>
+							<div class="clearfix"></div>
+						</a>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				</div>
+				<div class="agileinfo-ads-display col-md-9">
+					<div class="wrapper">					
+					<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+					  <ul id="myTab" class="nav nav-tabs nav-tabs-responsive" role="tablist">
+
+
+					  </ul>
+					  <div id="myTabContent" class="tab-content">
+						<div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+						<h2 class="sear-head fer">Trending Post</h2>
+						   <div>
+												<div id="container">
+
+
+								<div class="clearfix"></div>
+							<ul class="list">
+							{% for product in classified_list %}
+								<a href="{% url 'single_listview' product.slug %}">
+									<li>
+									<img src="{{product.image.url}}" title="" alt="image" />
+									<section class="list-left">
+									<h5 class="title">{{product.title}}</h5>
+									<span class="adprice">#{{product.price}}</span>
+									<p class="catpath">Mobile Phones » {{product.brand}}</p>
+									</section>
+									<section class="list-right">
+									<span class="date">Date: {{product.date}}</span>
+									<span class="cityname">Location: {{product.city}}</span>
+									</section>
+									<div class="clearfix"></div>
+									</li> 
+								<div class="clearfix"></div>
+								</a>
+							{% endfor %}
+							</ul>
+						</div>
+							</div>
+						</div>
+						{% if classified_list.has_other_pages %}
+                          
+                            <ul class="pagination pagination-sm">
+                                {% if classified_list.has_previous %}
+                                    <li><a href="?page={{ classified_list.previous_page_number }}">Prev</a></li>
+                                {% else %}
+                                    <li class="disabled"></li>
+                                {% endif %}
+                                    
+                                {% for pages in classified_list.paginator.page_range %}
+                                    {% if classified_list.number == pages %}
+                                        <li><a href="#">{{pages}}</a></li>
+                                    {% else %}
+                                        <li><a href="?page={{pages}}">{{pages}}</a></li>
+                                    {% endif %}
+                                    
+                                {% endfor %}
+                                    
+                                
+                                {% if classified_list.has_next %}
+                                    <li><a href="?page={{ classified_list.next_page_number }}">Next</a></li>
+                                {% else %}
+                                    <li class="disabled"></li>
+                                {% endif %}
+                                   
+                            </ul>
+
+                        {% endif %}
+					  </div>
+					</div>
+				</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>	
+	</div>
+	<!-- // Products -->
+{% endblock body %}
