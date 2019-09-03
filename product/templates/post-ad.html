@@ -16,7 +16,7 @@
 			<h2 class="w3-head">Post an Ad</h2>
 			<div class="post-ad-form">
 					<div class="personal-details">
-					<form method="POST" action="" enctype="multipart/form-data">
+					<form method="POST" enctype="multipart/form-data">
 					{% csrf_token %}
 					{{form | crispy}}
 					{{formset.as_table}}
