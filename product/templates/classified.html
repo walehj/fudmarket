@@ -73,16 +73,18 @@
 				<div class="w3ls-featured-ads">
 					<h2 class="sear-head fer">Featured Ads</h2>
 					<div class="w3l-featured-ad">
-						<a href="single.html">
+					{% if featured %}
+						<a href="{% url 'single_listview' featured.slug %}">
 							<div class="w3-featured-ad-left">
-								<img src="images/f1.jpg" title="ad image" alt="" />
+								<img src="{{featured.image.url}}" width="70" height="90" title="ad image" alt="" />
 							</div>
 							<div class="w3-featured-ad-right">
-								<h4>Lorem Ipsum is simply dummy text of the printing industry</h4>
-								<p>$ 450</p>
+								<h4>{{featured.title}}</h4>
+								<p># {{featured.price}}</p>
 							</div>
 							<div class="clearfix"></div>
 						</a>
+					{% endif %}
 					</div>
 					<div class="clearfix"></div>
 				</div>
