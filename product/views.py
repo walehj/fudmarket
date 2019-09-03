@@ -19,6 +19,7 @@ from django.contrib.auth.decorators import login_required
 def classifiedView(request, category_slug=None):
     category = None
     classifiedView = Product.objects.all()
+    featured = Product.objects.get(id=1)
     city_list = City.objects.all()
     ads_cat = Category.objects.annotate(total_products=Count('product'))
 
@@ -41,7 +42,7 @@ def classifiedView(request, category_slug=None):
     classifiedView = paginator.get_page(page)
     template = 'classified.html'
     context = {'classified_list': classifiedView,
-               'city_list': city_list, 'ads_cat': ads_cat}
+               'city_list': city_list, 'ads_cat': ads_cat, 'featured': featured}
     return render(request, template, context)
 
 
